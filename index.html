@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote Counter</title>
+</head>
+<body>
+    <h1>Vote Counter</h1>
+    <p>Total Votes: <span id="totalVotes">0</span></p>
+    <label for="voteInput">Enter Your Vote:</label>
+    <input type="number" id="voteInput">
+    <button id="voteButton">Submit Vote</button>
+
+    <script>
+        // Initialize the totalVotes variable from local storage or set it to 0
+        let totalVotes = parseInt(localStorage.getItem('totalVotes')) || 0;
+        const totalVotesElement = document.getElementById('totalVotes');
+        totalVotesElement.textContent = totalVotes;
+
+        // Event listener for the vote button
+        document.getElementById('voteButton').addEventListener('click', function () {
+            // Get the user's vote from the input field
+            const voteInput = document.getElementById('voteInput');
+            const userVote = parseInt(voteInput.value);
+
+            // Check if the input is a valid number
+            if (!isNaN(userVote)) {
+                // Add the user's vote to the total
+                totalVotes += userVote;
+
+                // Update the total votes on the webpage
+                totalVotesElement.textContent = totalVotes;
+
+                // Store the updated totalVotes in local storage
+                localStorage.setItem('totalVotes', totalVotes.toString());
+
+                // Clear the input field
+                voteInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
